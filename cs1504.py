@@ -299,7 +299,7 @@ def crc16(string, value=0):
   for ch in string:
     value = table[ord(ch) ^ (value & 0xff)] ^ (value >> 8)
   #return value
-  return struct.pack('>H', ~value)
+  return struct.pack('>H', (~value) & 0xFFFF)
 
 # CRC-16 poly: p(x) = x**16 + x**15 + x**2 + 1
 # top bit implicit, reflected
