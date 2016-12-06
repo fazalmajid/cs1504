@@ -1,7 +1,7 @@
 cs1504
 ======
 
-Python driver for the Symbol CS1504 bra code scanner
+Python driver for the Symbol CS1504 bar code scanner
 
 See my blog post for more details:
 
