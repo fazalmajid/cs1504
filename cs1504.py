@@ -270,11 +270,18 @@ class CS1504:
     """Receive a response. For fixed-size responses, specifying it will take
     less time as we won't need to wait for the timeout to return data
     """
-    data = self.ser.read(length)
-    if data:
+    count = 0
+    done = False
+    data = ''
+    while not done:
+      data += self.ser.read(length)
       assert data.startswith('\x06\x02'), data.encode('hex')
-      assert data[-2:] == crc16(data[:-2])
-      assert data[-3] == '\0'
+      if data[-2:] == crc16(data[:-2]) and data[-3] == '\0':
+        done = True
+      count += 1
+      if count > 10:
+        print('Aaw geez... too much data!')
+        break
     return data
 
   def close(self):
